@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A Special Letter Just for You</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Pinyon+Script&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="is-locked">
+
+  <!-- Background satin (Three.js) -->
+  <canvas id="silk" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <svg class="pre-ring" viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="52" />
+      <path class="pre-heart"
+        d="M60 82 C 30 62, 34 38, 50 38 C 56 38, 60 44, 60 48 C 60 44, 64 38, 70 38 C 86 38, 90 62, 60 82 Z" />
+    </svg>
+    <p class="pre-text"><span id="pre-count">0</span>%</p>
+  </div>
+
+  <!-- Navigasi -->
+  <nav class="topnav" aria-label="Navigasi">
+    <a href="#opening" data-nav="opening">Opening</a>
+    <a href="#inside" data-nav="inside">Inside</a>
+    <a href="#letter-wrap" data-nav="letter">Letter</a>
+  </nav>
+
+  <div id="smooth">
+
+    <!-- 1. OPENING ============================================ -->
+    <section id="opening" class="panel">
+      <h1 class="title reveal-chars">A Special Letter Just for You</h1>
+
+      <div class="env-stage">
+        <div class="flora flora-left" data-flora="opening-left"></div>
+        <div class="flora flora-right" data-flora="opening-right"></div>
+
+        <div class="env env-red" id="env-red">
+          <div class="env-back"></div>
+          <div class="env-card">
+            <p class="script">for you, always</p>
+          </div>
+          <div class="env-front"></div>
+          <div class="env-flap">
+            <div class="env-flap-inner"></div>
+          </div>
+          <!-- Segel lilin (dimanipulasi anime.js) -->
+          <svg class="seal" id="seal" viewBox="0 0 200 200" aria-hidden="true">
+            <defs>
+              <radialGradient id="sealGrad" cx="40%" cy="35%" r="70%">
+                <stop offset="0%" stop-color="#f6e2b8" />
+                <stop offset="55%" stop-color="#ddb879" />
+                <stop offset="100%" stop-color="#a97e43" />
+              </radialGradient>
+              <radialGradient id="sealInner" cx="50%" cy="45%" r="60%">
+                <stop offset="0%" stop-color="#e6c690" />
+                <stop offset="100%" stop-color="#b98d50" />
+              </radialGradient>
+            </defs>
+            <g class="seal-half seal-l">
+              <path class="seal-blob" clip-path="url(#clipL)" fill="url(#sealGrad)"
+                d="M100 12 C126 10 150 22 166 40 C186 58 190 84 186 108 C184 136 168 160 144 176 C122 190 92 192 68 182 C42 172 22 152 14 126 C6 98 12 70 30 48 C48 26 74 14 100 12 Z" />
+            </g>
+            <g class="seal-half seal-r">
+              <path class="seal-blob" clip-path="url(#clipR)" fill="url(#sealGrad)"
+                d="M100 12 C126 10 150 22 166 40 C186 58 190 84 186 108 C184 136 168 160 144 176 C122 190 92 192 68 182 C42 172 22 152 14 126 C6 98 12 70 30 48 C48 26 74 14 100 12 Z" />
+            </g>
+            <clipPath id="clipL">
+              <path d="M0 0 H104 L96 50 L108 90 L94 130 L104 200 H0 Z" />
+            </clipPath>
+            <clipPath id="clipR">
+              <path d="M104 0 H200 V200 H104 L94 130 L108 90 L96 50 Z" />
+            </clipPath>
+            <g class="seal-face">
+              <circle cx="100" cy="100" r="54" fill="url(#sealInner)" />
+              <circle class="seal-ring" cx="100" cy="100" r="54" fill="none" stroke="#9a733c" stroke-width="2" />
+              <circle class="seal-ring" cx="100" cy="100" r="46" fill="none" stroke="#f3dcae" stroke-width="1.2"
+                stroke-dasharray="2 4" />
+              <path class="seal-heart"
+                d="M100 128 C72 110 70 88 84 82 C92 79 98 84 100 90 C102 84 108 79 116 82 C130 88 128 110 100 128 Z"
+                fill="none" stroke="#8f6a35" stroke-width="3" stroke-linejoin="round" />
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <button class="btn-pill magnetic" id="btn-open"><span>Tap to Open</span></button>
+    </section>
+
+    <!-- INSIDE ================================================= -->
+    <main id="inside">
+
+      <!-- 2. Tiga bingkai scallop -->
+      <section id="frames" class="panel">
+        <div class="frames-row" id="frames-row"></div>
+      </section>
+
+      <!-- 3. Lagu favorit -->
+      <section id="song" class="panel">
+        <h2 class="title reveal-chars">Play Our Favorite Song</h2>
+        <div class="song-stage">
+          <div class="flora flora-song-l" data-flora="song-left"></div>
+          <div class="flora flora-song-r" data-flora="song-right"></div>
+          <div class="flora flora-song-bl" data-flora="song-bottom"></div>
+
+          <div class="turntable">
+            <div class="lottie-heart" id="lottie-heart" aria-hidden="true"></div>
+            <svg class="vinyl" id="vinyl" viewBox="0 0 400 400" role="img" aria-label="Piringan hitam">
+              <defs>
+                <radialGradient id="vinylGrad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#222" />
+                  <stop offset="100%" stop-color="#050505" />
+                </radialGradient>
+                <linearGradient id="vinylShine" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#fff" stop-opacity="0" />
+                  <stop offset="45%" stop-color="#fff" stop-opacity=".16" />
+                  <stop offset="55%" stop-color="#fff" stop-opacity="0" />
+                  <stop offset="100%" stop-color="#fff" stop-opacity=".08" />
+                </linearGradient>
+                <clipPath id="labelClip">
+                  <circle cx="200" cy="200" r="66" />
+                </clipPath>
+              </defs>
+              <circle cx="200" cy="200" r="196" fill="url(#vinylGrad)" />
+              <g id="grooves"></g>
+              <image id="vinyl-label" href="" x="134" y="134" width="132" height="132" clip-path="url(#labelClip)"
+                preserveAspectRatio="xMidYMid slice" />
+              <circle cx="200" cy="200" r="66" fill="none" stroke="#000" stroke-opacity=".35" stroke-width="3" />
+              <circle cx="200" cy="200" r="5" fill="#d8cfc4" />
+            </svg>
+            <div class="vinyl-shine" aria-hidden="true"></div>
+            <button class="vinyl-toggle" id="btn-play" aria-label="Putar lagu">
+              <svg viewBox="0 0 24 24">
+                <path class="ic-play" d="M8 5v14l11-7z" />
+                <g class="ic-pause">
+                  <rect x="6" y="5" width="4" height="14" rx="1" />
+                  <rect x="14" y="5" width="4" height="14" rx="1" />
+                </g>
+              </svg>
+            </button>
+          </div>
+
+          <div class="song-meta">
+            <div class="seek" id="seek">
+              <div class="seek-track">
+                <div class="seek-fill" id="seek-fill"></div>
+              </div>
+              <div class="seek-knob" id="seek-knob"></div>
+            </div>
+            <div class="song-times"><span id="t-cur">0:00</span><span id="t-dur">0:00</span></div>
+            <p class="song-name"><span id="song-title"></span> — <em id="song-artist"></em></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Awal cerita -->
+      <section id="story" class="panel">
+        <div class="story-grid">
+          <div class="story-visual">
+            <div class="flora flora-story" data-flora="story"></div>
+            <svg class="oval" id="oval" viewBox="0 0 400 500" aria-hidden="true">
+              <defs>
+                <clipPath id="ovalClip">
+                  <ellipse cx="200" cy="250" rx="132" ry="172" />
+                </clipPath>
+              </defs>
+              <g id="oval-beads"></g>
+              <ellipse class="oval-line" cx="200" cy="250" rx="168" ry="210" fill="none" stroke="#efe6d9"
+                stroke-width="2" />
+              <ellipse class="oval-line" cx="200" cy="250" rx="150" ry="190" fill="#f4ede3" stroke="#d9cbb8"
+                stroke-width="1.5" />
+              <ellipse class="oval-line" cx="200" cy="250" rx="140" ry="180" fill="none" stroke="#c7b59c"
+                stroke-width="1" stroke-dasharray="3 5" />
+              <image id="story-img" href="" x="68" y="78" width="264" height="344" clip-path="url(#ovalClip)"
+                preserveAspectRatio="xMidYMid slice" />
+              <ellipse cx="200" cy="250" rx="132" ry="172" fill="none" stroke="#bfa985" stroke-width="2" />
+            </svg>
+          </div>
+          <div class="story-text">
+            <h2 class="title title-left reveal-chars">Did you remember<br />how this story began?</h2>
+            <div id="story-paras"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Album 3D yang berjalan menyusuri jalan -->
+      <section id="journey">
+        <div class="journey-pin">
+          <canvas id="journey-canvas"></canvas>
+          <div class="journey-hud">
+            <p class="journey-hint" id="journey-hint">Scroll untuk membuka album</p>
+            <div class="journey-caption" id="journey-caption"><span class="jc-date"></span><span class="jc-text"></span>
+            </div>
+            <div class="journey-progress"><span id="journey-bar"></span></div>
+            <svg class="journey-map" id="journey-map" aria-hidden="true">
+              <path class="jm-base" />
+              <path class="jm-line" />
+              <g class="jm-stops"></g>
+              <circle class="jm-me" r="4" />
+            </svg>
+            <div class="journey-end" id="journey-end">
+              <p class="je-kicker">Our Path</p>
+              <p class="je-title">Every step of this road<br />led me to you</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5b. Our Special Moment -->
+      <section id="moments" class="panel">
+        <svg class="ornament" viewBox="0 0 320 40" aria-hidden="true">
+          <path class="draw" d="M10 20 H118 M202 20 H310" />
+          <path class="draw"
+            d="M118 20 C130 4 150 6 150 18 C150 28 136 28 138 18 M202 20 C190 4 170 6 170 18 C170 28 184 28 182 18" />
+          <path class="draw" d="M150 18 C154 30 166 30 170 18 C166 8 154 8 150 18 Z" />
+          <circle class="dot" cx="160" cy="19" r="2.4" />
+        </svg>
+        <h2 class="title reveal-chars">Our Special Moment</h2>
+        <div class="moments-grid" id="moments-grid"></div>
+      </section>
+    </main>
+
+    <!-- LETTER ================================================= -->
+    <div id="letter-wrap">
+      <!-- 6. Amplop krem -->
+      <section id="envelope2" class="panel">
+        <h2 class="title reveal-chars">Special Letter For You</h2>
+        <div class="env-stage env-stage-2">
+          <div class="flora flora-env2-l" data-flora="env2-left"></div>
+          <div class="flora flora-env2-r" data-flora="env2-right"></div>
+          <div class="env env-cream" id="env-cream">
+            <div class="env-back"></div>
+            <div class="env-card env-card-cream">
+              <p class="script">Dear <span class="js-recipient"></span>,</p>
+            </div>
+            <div class="env-front"></div>
+            <div class="env-flap">
+              <div class="env-flap-inner"></div>
+              <svg class="lace" id="lace" viewBox="0 0 400 220" preserveAspectRatio="none" aria-hidden="true"></svg>
+            </div>
+          </div>
+        </div>
+        <button class="btn-pill magnetic" id="btn-letter"><span>Tap to Open</span></button>
+      </section>
+
+      <!-- 7. Surat -->
+      <section id="letter" class="panel">
+        <div class="paper" id="paper">
+          <div class="flora flora-paper" data-flora="paper"></div>
+          <h2 class="paper-title">Dear <span class="js-recipient"></span> ,</h2>
+          <p class="paper-lead" id="paper-lead"></p>
+          <div class="paper-body" id="paper-body"></div>
+          <svg class="signature" viewBox="0 0 420 120" aria-hidden="true">
+            <text x="10" y="62" class="sig-small">With all my love,</text>
+            <text x="10" y="108" class="sig-name" id="sig-name"></text>
+          </svg>
+        </div>
+      </section>
+    </div>
+
+    <!-- 8. Film -->
+    <section id="film" class="panel">
+      <h2 class="title reveal-chars">A Short Film Just for You</h2>
+      <div class="player" id="player">
+        <video id="film-video" playsinline preload="metadata"></video>
+        <div class="player-top">
+          <span class="chip" id="film-title"></span>
+          <div class="player-icons">
+            <button class="ic-btn" id="btn-like" aria-label="Suka">
+              <svg viewBox="0 0 24 24">
+                <path id="like-path" d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <button class="player-center" id="film-center" aria-label="Putar film">
+          <svg viewBox="0 0 24 24">
+            <path class="ic-play" d="M8 5v14l11-7z" />
+            <g class="ic-pause">
+              <rect x="6" y="5" width="4" height="14" rx="1" />
+              <rect x="14" y="5" width="4" height="14" rx="1" />
+            </g>
+          </svg>
+        </button>
+        <div class="player-bar">
+          <button class="ic-btn" id="film-play" aria-label="Putar/jeda">
+            <svg viewBox="0 0 24 24">
+              <path class="ic-play" d="M8 5v14l11-7z" />
+              <g class="ic-pause">
+                <rect x="6" y="5" width="4" height="14" rx="1" />
+                <rect x="14" y="5" width="4" height="14" rx="1" />
+              </g>
+            </svg>
+          </button>
+          <span class="time" id="film-cur">0:00</span>
+          <div class="film-seek" id="film-seek">
+            <div class="film-seek-fill" id="film-seek-fill"></div>
+          </div>
+          <span class="time" id="film-dur">0:00</span>
+          <button class="ic-btn" id="film-mute" aria-label="Suara">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 9h4l5-4v14l-5-4H4z" />
+              <path class="vol-wave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none"
+                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+          </button>
+          <button class="ic-btn" id="film-fs" aria-label="Layar penuh">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <footer id="outro" class="panel">
+      <svg class="ornament" viewBox="0 0 320 40" aria-hidden="true">
+        <path class="draw" d="M10 20 H118 M202 20 H310" />
+        <path class="draw"
+          d="M118 20 C130 4 150 6 150 18 C150 28 136 28 138 18 M202 20 C190 4 170 6 170 18 C170 28 184 28 182 18" />
+        <path class="draw" d="M150 18 C154 30 166 30 170 18 C166 8 154 8 150 18 Z" />
+        <circle class="dot" cx="160" cy="19" r="2.4" />
+      </svg>
+      <p class="outro-script">Good Bye</p>
+      <p class="outro-small"><span class="js-sender"></span> &amp; <span class="js-recipient"></span></p>
+      <button class="btn-pill magnetic" id="btn-top"><span>Back to the Beginning</span></button>
+    </footer>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <img alt="" id="lightbox-img" />
+    <p id="lightbox-cap"></p>
+  </div>
+
+  <!-- Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+
+  <!-- App -->
+  <script src="js/config.js"></script>
+  <script src="js/flora.js"></script>
+  <script src="js/lottie-heart.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/silk.js"></script>
+  <script src="js/journey.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
